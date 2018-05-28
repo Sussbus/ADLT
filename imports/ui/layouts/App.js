@@ -10,6 +10,7 @@ import Home from '../pages/Home'
 import Happenings from '../pages/Happenings'
 import Sights from '../pages/Sights'
 import Profile from '../pages/Profile'
+import Settings from '../pages/Settings'
 import NotFound from '../pages/NotFound'
 
 import NavBar from '../components/NavBar'
@@ -42,6 +43,11 @@ class App extends Component {
                             />
                             <Route exact path="/sights" component={Sights} />
                             <Route exact path="/profile" component={Profile} />
+                            <Route
+                                exact
+                                path="/settings"
+                                component={Settings}
+                            />
                             <Route component={NotFound} />
                         </Switch>
                     </div>
