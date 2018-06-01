@@ -1,7 +1,7 @@
 import React from 'react'
 import { Row, Col, Card } from 'antd'
 
-const Post = ({ category }) => {
+const Post = ({ category, body }) => {
     return (
         <Row style={{ marginBottom: 10 }}>
             <Col span={12}>
@@ -18,13 +18,7 @@ const Post = ({ category }) => {
                             {category}
                         </p>
                     </Row>
-                    <p style={{ marginBottom: 2 }}>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit. Eligendi non quis exercitationem culpa nesciunt
-                        nihil aut nostrum explicabo reprehenderit optio amet ab
-                        temporibus asperiores quasi cupiditate. Voluptatum
-                        ducimus voluptates voluptas?
-                    </p>
+                    <p style={{ marginBottom: 2 }}>{body}</p>
                 </Card>
             </Col>
         </Row>

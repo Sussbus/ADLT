@@ -18,6 +18,11 @@ class Settings extends Component {
         message.success('Settings updated')
     }
 
+    resendVerificationEmail = () => {
+        message.success('Verification email has been sent')
+        console.log('resending verification email...')
+    }
+
     render() {
         const { getFieldDecorator } = this.props.form
         const { user } = this.props
@@ -56,6 +61,7 @@ class Settings extends Component {
                                             fontWeight: '700',
                                             color: 'orange'
                                         }}
+                                        onClick={this.resendVerificationEmail}
                                     >
                                         here
                                     </a>{' '}

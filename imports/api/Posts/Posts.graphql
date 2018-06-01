@@ -1,0 +1,17 @@
+# body
+# createdAt
+# author
+# [commentId]
+
+type Post {
+    _id: String!
+    body: String!
+}
+
+type Mutation {
+    createPost(body: String!): Post
+}
+
+type Query {
+    posts: [Post]
+}

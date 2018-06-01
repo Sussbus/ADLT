@@ -1,26 +1,69 @@
 import React, { Component } from 'react'
 import { Card, Input, Row, Col } from 'antd'
+import { graphql } from 'react-apollo'
+import gql from 'graphql-tag'
+
+import CreatePostForm from '../components/CreatePostForm'
 
 import Post from '../components/Post'
 
-class Happenings extends Component {
-    render() {
-        return (
-            <Col span={20} offset={2}>
-                <Row style={{ marginBottom: 15 }}>
-                    <Col span={10} style={{ paddingTop: 20 }}>
-                        <Input.TextArea
-                            placeholder="Got anything you want to share with the community?"
-                            autosize={{ minRows: 3, maxRows: 6 }}
-                        />
-                    </Col>
-                </Row>
-                <Post category="Experience" />
-                <Post category="Suggestion" />
-                <Post category="Suggestion" />
-            </Col>
-        )
-    }
+const Happenings = ({ loading, posts }) => {
+    return (
+        <Col span={20} offset={2}>
+            <Row style={{ marginBottom: 15 }}>
+                <Col span={10} style={{ paddingTop: 20 }}>
+                    <CreatePostForm />
+                </Col>
+            </Row>
+            {loading
+                ? null
+                : posts.map(post => (
+                      <Post
+                          key={post._id}
+                          category="Experience"
+                          body={post.body}
+                      />
+                  ))}
+            <Post
+                category="Experience"
+                body="
+                        Lorem ipsum dolor sit amet, consectetur adipisicing
+                        elit. Eligendi non quis exercitationem culpa nesciunt
+                        nihil aut nostrum explicabo reprehenderit optio amet ab
+                        temporibus asperiores quasi cupiditate. Voluptatum
+                        ducimus voluptates voluptas?"
+            />
+            <Post
+                category="Suggestion"
+                body="
+                        Lorem ipsum dolor sit amet, consectetur adipisicing
+                        elit. Eligendi non quis exercitationem culpa nesciunt
+                        nihil aut nostrum explicabo reprehenderit optio amet ab
+                        temporibus asperiores quasi cupiditate. Voluptatum
+                        ducimus voluptates voluptas?"
+            />
+            <Post
+                category="Suggestion"
+                body="
+                        Lorem ipsum dolor sit amet, consectetur adipisicing
+                        elit. Eligendi non quis exercitationem culpa nesciunt
+                        nihil aut nostrum explicabo reprehenderit optio amet ab
+                        temporibus asperiores quasi cupiditate. Voluptatum
+                        ducimus voluptates voluptas?"
+            />
+        </Col>
+    )
 }
 
-export default Happenings
+const postsQuery = gql`
+    query Posts {
+        posts {
+            _id
+            body
+        }
+    }
+`
+
+export default graphql(postsQuery, {
+    props: ({ data }) => ({ ...data })
+})(Happenings)
