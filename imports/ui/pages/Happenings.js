@@ -8,6 +8,7 @@ import CreatePostForm from '../components/CreatePostForm'
 import Post from '../components/Post'
 
 const Happenings = ({ loading, posts }) => {
+    console.log(posts)
     return (
         <Col span={20} offset={2}>
             <Row style={{ marginBottom: 15 }}>
@@ -20,7 +21,7 @@ const Happenings = ({ loading, posts }) => {
                 : posts.map(post => (
                       <Post
                           key={post._id}
-                          category="Experience"
+                          category={post.category}
                           body={post.body}
                       />
                   ))}

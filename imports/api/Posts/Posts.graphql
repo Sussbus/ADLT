@@ -6,10 +6,11 @@
 type Post {
     _id: String!
     body: String!
+    category: String!
 }
 
 type Mutation {
-    createPost(body: String!): Post
+    createPost(body: String!, category: String!): Post
 }
 
 type Query {

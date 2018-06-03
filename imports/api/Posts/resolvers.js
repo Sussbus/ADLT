@@ -8,9 +8,10 @@ export default {
     },
 
     Mutation: {
-        createPost(obj, { body }, { userId }) {
+        createPost(obj, { body, category }, { userId }) {
             const postId = Posts.insert({
                 body,
+                category,
                 userId
             })
             return Posts.findOne(postId)
