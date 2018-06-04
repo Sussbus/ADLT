@@ -33,6 +33,10 @@ class Settings extends Component {
                     <Form layout="horizontal">
                         <Form.Item label="First Name" {...formItemLayout}>
                             {getFieldDecorator('firstName', {
+                                initialValue:
+                                    user.profile === undefined
+                                        ? 'loading...'
+                                        : user.profile.name.first,
                                 rules: [
                                     {
                                         message: 'Please enter your first name'
@@ -42,6 +46,10 @@ class Settings extends Component {
                         </Form.Item>
                         <Form.Item label="Last Name" {...formItemLayout}>
                             {getFieldDecorator('lastName', {
+                                initialValue:
+                                    user.profile === undefined
+                                        ? 'loading...'
+                                        : user.profile.name.last,
                                 rules: [
                                     {
                                         message: 'Please enter last name'
@@ -83,6 +91,10 @@ class Settings extends Component {
                         </Form.Item>
                         <Form.Item label="Bio" {...formItemLayout}>
                             {getFieldDecorator('bio', {
+                                initialValue:
+                                    user.profile === undefined
+                                        ? 'loading...'
+                                        : user.profile.name.bio,
                                 rules: [
                                     {
                                         message: 'Please enter your profile bio'

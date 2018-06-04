@@ -22,6 +22,25 @@ const history = syncHistoryWithStore(browserHistory, store)
 
 class App extends Component {
     render() {
+        const isAuthenticated = Meteor.user() !== null
+
+        const PrivateRoute = ({ component: Component, ...rest }) => (
+            <Route
+                {...rest}
+                render={props =>
+                    isAuthenticated ? (
+                        <Component {...props} />
+                    ) : (
+                        <Redirect
+                            to={{
+                                pathname: '/'
+                            }}
+                        />
+                    )
+                }
+            />
+        )
+
         return (
             <Layout
                 style={{
@@ -42,8 +61,12 @@ class App extends Component {
                                 component={Happenings}
                             />
                             <Route exact path="/sights" component={Sights} />
-                            <Route exact path="/profile" component={Profile} />
-                            <Route
+                            <PrivateRoute
+                                exact
+                                path="/profile"
+                                component={Profile}
+                            />
+                            <PrivateRoute
                                 exact
                                 path="/settings"
                                 component={Settings}
