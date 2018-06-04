@@ -40,7 +40,7 @@ class CreatePostForm extends Component {
         const { getFieldDecorator } = this.props.form
         return (
             <Form>
-                <Card title={null}>
+                <Card title={null} bodyStyle={{ marginBottom: -30 }}>
                     <Row>
                         <Col span={24}>
                             <Form.Item>
@@ -68,11 +68,7 @@ class CreatePostForm extends Component {
                             </Form.Item>
                         </Col>
                     </Row>
-                    <Row
-                        type="flex"
-                        justify="end"
-                        style={{ top: -20, bottom: -20 }}
-                    >
+                    <Row type="flex" justify="end">
                         <Col span={5} pull={1}>
                             <Form.Item>
                                 {getFieldDecorator('category', {

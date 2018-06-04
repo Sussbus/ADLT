@@ -7,10 +7,12 @@ type Post {
     _id: String!
     body: String!
     category: String!
+    likes: Int
 }
 
 type Mutation {
     createPost(body: String!, category: String!): Post
+    votePost(postId: String!, vote: Int!): Post
 }
 
 type Query {
