@@ -4,21 +4,24 @@ import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 
 import Post from '../components/Post'
+import Loading from '../components/Loading'
 
 const Profile = ({ loading, user }) => {
     return (
-        <Col span={20} offset={2}>
+        <Col span={20} offset={2} style={{ paddingTop: 20 }}>
             <h1>Profile</h1>
-            {!loading ? (
+            {loading ? (
+                <Loading />
+            ) : (
                 user.posts.map(post => (
                     <Post
                         key={post._id}
-                        category={post.category}
                         body={post.body}
+                        category={post.category}
+                        likes={post.likes}
+                        postId={post._id}
                     />
                 ))
-            ) : (
-                <p>Loading...</p>
             )}
         </Col>
     )
@@ -32,6 +35,8 @@ const profileQuery = gql`
             posts {
                 _id
                 body
+                category
+                likes
             }
         }
     }

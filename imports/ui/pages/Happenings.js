@@ -4,6 +4,7 @@ import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 
 import CreatePostForm from '../components/CreatePostForm'
+import Loading from '../components/Loading'
 
 import Post from '../components/Post'
 
@@ -16,17 +17,19 @@ const Happenings = ({ loading, posts }) => {
                     {Meteor.user() !== null && <CreatePostForm />}
                 </Col>
             </Row>
-            {loading
-                ? null
-                : posts.map(post => (
-                      <Post
-                          key={post._id}
-                          body={post.body}
-                          category={post.category}
-                          likes={post.likes}
-                          postId={post._id}
-                      />
-                  ))}
+            {loading ? (
+                <Loading />
+            ) : (
+                posts.map(post => (
+                    <Post
+                        key={post._id}
+                        body={post.body}
+                        category={post.category}
+                        likes={post.likes}
+                        postId={post._id}
+                    />
+                ))
+            )}
             <Post
                 category="Experience"
                 body="
