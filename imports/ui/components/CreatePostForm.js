@@ -3,13 +3,7 @@ import { Form, Input, Button, Row, Col, Card, Select } from 'antd'
 import gql from 'graphql-tag'
 import { graphql } from 'react-apollo'
 
-const createPost = gql`
-    mutation createPost($body: String!, $category: String!) {
-        createPost(body: $body, category: $category) {
-            _id
-        }
-    }
-`
+import { CREATE_POST } from '../../api/graphql/mutations'
 
 class CreatePostForm extends Component {
     state = {
@@ -110,7 +104,7 @@ class CreatePostForm extends Component {
 }
 
 export default Form.create()(
-    graphql(createPost, {
+    graphql(CREATE_POST, {
         name: 'createPost',
         options: {
             refetchQueries: ['Posts']

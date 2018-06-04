@@ -6,13 +6,7 @@ import { graphql } from 'react-apollo'
 import store from '../../store/store'
 import { toggleLogin } from '../../actions/login'
 
-const votePost = gql`
-    mutation votePost($postId: String!, $vote: Int!) {
-        votePost(postId: $postId, vote: $vote) {
-            _id
-        }
-    }
-`
+import { VOTE_POST } from '../../api/graphql/mutations'
 
 class VoteButton extends Component {
     state = {
@@ -112,7 +106,7 @@ class VoteButton extends Component {
     }
 }
 
-export default graphql(votePost, {
+export default graphql(VOTE_POST, {
     name: 'votePost',
     options: {
         refetchQueries: ['Posts']
