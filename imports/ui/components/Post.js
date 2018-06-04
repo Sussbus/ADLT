@@ -1,7 +1,7 @@
 import React from 'react'
 import { Row, Col, Card } from 'antd'
 
-import FavoriteButton from '../components/FavoriteButton'
+import VoteButton from '../components/VoteButton'
 
 const Post = ({ body, category, likes, postId }) => {
     return (
@@ -21,7 +21,7 @@ const Post = ({ body, category, likes, postId }) => {
                         </p>
                     </Row>
                     <Col span={2}>
-                        <FavoriteButton likes={likes} postId={postId} />
+                        <VoteButton likes={likes} postId={postId} />
                     </Col>
                     <Col span={22}>
                         <p style={{ marginBottom: 2 }}>{body}</p>
