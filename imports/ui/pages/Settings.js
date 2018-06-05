@@ -1,6 +1,15 @@
 import React, { Component } from 'react'
 import { Button, Card, Row, Col, Form, Input, Popconfirm, message } from 'antd'
+import { compose } from 'recompose'
 import { connect } from 'react-redux'
+import { graphql } from 'react-apollo'
+
+import {
+    UPDATE_EMAIL,
+    UPDATE_FIRST_NAME,
+    UPDATE_LAST_NAME,
+    UPDATE_BIO
+} from '../../api/graphql/mutations'
 
 const formItemLayout = {
     labelCol: {
@@ -15,7 +24,44 @@ const formItemLayout = {
 
 class Settings extends Component {
     updateUserSettings = () => {
-        message.success('Settings updated')
+        this.props.form.validateFields((error, values) => {
+            if (!error) {
+                if (values.firstName != this.props.user.profile.name.first) {
+                    this.props.updateFirstName({
+                        variables: {
+                            newFirstName: values.firstName
+                        }
+                    })
+                    message.success('First name updated')
+                }
+                if (values.lastName != this.props.user.profile.name.last) {
+                    this.props.updateLastName({
+                        variables: {
+                            newLastName: values.lastName
+                        }
+                    })
+                    message.success('Last name updated')
+                }
+                if (values.email != this.props.user.emails[0].address) {
+                    this.props.updateEmail({
+                        variables: {
+                            newEmail: values.email
+                        }
+                    })
+                    message.success('Email updated')
+                }
+                if (values.bio != this.props.user.profile.bio) {
+                    this.props.updateBio({
+                        variables: {
+                            newBio: values.bio
+                        }
+                    })
+                    message.success('Bio updated')
+                }
+            } else {
+                console.log(error)
+            }
+        })
     }
 
     resendVerificationEmail = () => {
@@ -94,7 +140,7 @@ class Settings extends Component {
                                 initialValue:
                                     user.profile === undefined
                                         ? 'loading...'
-                                        : user.profile.name.bio,
+                                        : user.profile.bio,
                                 rules: [
                                     {
                                         message: 'Please enter your profile bio'
@@ -146,6 +192,23 @@ const mapStateToProps = state => {
     }
 }
 
-const wrappedSettings = connect(mapStateToProps)(Settings)
+const withRedux = connect(mapStateToProps)
 
-export default Form.create()(connect(mapStateToProps)(wrappedSettings))
+const withForm = Form.create()
+
+const withMutation = compose(
+    graphql(UPDATE_FIRST_NAME, {
+        name: 'updateFirstName'
+    }),
+    graphql(UPDATE_LAST_NAME, {
+        name: 'updateLastName'
+    }),
+    graphql(UPDATE_EMAIL, {
+        name: 'updateEmail'
+    }),
+    graphql(UPDATE_BIO, {
+        name: 'updateBio'
+    })
+)
+
+export default compose(withRedux, withForm, withMutation)(Settings)
